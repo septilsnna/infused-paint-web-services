@@ -14,5 +14,6 @@ Aplikasi Infused Paint merupakan sebuah aplikasi yang didalamnya terdapat fitur 
 ### Related Link
 * [Download Application at Google Play Store](https://play.google.com/store/apps/details?id=com.mobcom.infusedpaint)
 * [Infused Paint Application Repository](https://github.com/septilsnna/infused-paint)
-* [Issues](https://github.com/septilsnna/infused-paint/issues)
+* [Product Backlog and Sprint Backlog](http://infused-paint-web-services.pikupa.id/Sprint)
 * [Our Progress](https://github.com/septilsnna/infused-paint/projects/1)
+* [Issues](https://github.com/septilsnna/infused-paint/issues)
