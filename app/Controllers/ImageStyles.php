@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\ImageStylesModel;
 use CodeIgniter\RESTful\ResourceController;
 
-class ImageStyles extends ResourceController
+class Imagestyles extends ResourceController
 {
     protected $format = 'json';
     protected $modelName = 'App\Models\ImageStylesModel';
@@ -24,6 +24,7 @@ class ImageStyles extends ResourceController
     public function create()                // POST
     {
         $imagestyles = [
+            'style_id' => $this->request->getPost('style_id'),
             'title' => $this->request->getPost('title'),
             'creator' => $this->request->getPost('creator'),
             'image_story' => $this->request->getPost('image_story'),
@@ -58,7 +59,7 @@ class ImageStyles extends ResourceController
                 'title' => $imagestyles['title'],
                 'creator' => $imagestyles['creator'],
                 'image_story' => $imagestyles['image_story'],
-                'image_Style' => $imagestyles['image_Style'],
+                'image_file' => $imagestyles['image_file'],
                 'used_freq' => (int)$imagestyles['used_freq'],
                 'created_at' => $imagestyles['created_at'],
             ];

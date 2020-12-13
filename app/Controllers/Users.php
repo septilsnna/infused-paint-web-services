@@ -28,6 +28,7 @@ class Users extends ResourceController
             'password' => $this->request->getPost('password'),
             'name' => $this->request->getPost('name'),
             'email' => $this->request->getPost('email'),
+            'quota_today' => $this->request->getPost('quota_today'),
         ];
 
         $save = $this->usersModel->insertUsers($users);
@@ -49,15 +50,17 @@ class Users extends ResourceController
         }
     }
 
-    public function show($id = null)        // Users/show method POST
+    public function show($email = null)        // Users/show method POST
     {
-        $users = $this->usersModel->getUsers($id);
+        $users = $this->usersModel->getUsers($email);
         if (!empty($users)) {
             $output = [
                 'username' => $users['username'],
                 'password' => $users['password'],
                 'name' => $users['name'],
                 'email' => $users['email'],
+                'photo' => $users['photo'],
+                'quota_today' => $users['quota_today'],
                 'edit_freq' => (int)$users['edit_freq'],
                 'share_freq' => (int)$users['share_freq'],
                 'created_at' => $users['created_at'],
@@ -73,15 +76,16 @@ class Users extends ResourceController
         }
     }
 
-    public function edit($id = null)        // Users/edit method POST
+    public function edit($email = null)        // Users/edit method POST
     {
-        $users = $this->usersModel->getUsers($id);
+        $users = $this->usersModel->getUsers($email);
         if (!empty($users)) {
             $output = [
                 'username' => $users['username'],
                 'password' => $users['password'],
                 'name' => $users['name'],
                 'email' => $users['email'],
+                'quota_today' => $users['quota_today'],
                 'edit_freq' => (int)$users['edit_freq'],
                 'share_freq' => (int)$users['share_freq'],
                 'created_at' => $users['created_at'],
@@ -97,16 +101,16 @@ class Users extends ResourceController
         }
     }
 
-    public function update($id = null)      // PUT
+    public function update($email = null)      // PUT
     {
         $data = $this->request->getRawInput();
-        $users = $this->usersModel->getUsers($id);
+        $users = $this->usersModel->getUsers($email);
         if (!empty($users)) {
-            $updateUsers = $this->usersModel->updateUsers($data, $id);
+            $updateUsers = $this->usersModel->updateUsers($data, $email);
             $output = [
                 'status' => 200,
                 'message' => 'Berhasil mengupdate data',
-                'data' => ''
+                'data' => $data
             ];
             return $this->respond($output, 200);
         } else {
@@ -119,11 +123,11 @@ class Users extends ResourceController
         }
     }
 
-    public function delete($id = null)      // DELETE
+    public function delete($email = null)      // DELETE
     {
-        $users = $this->usersModel->getUsers($id);
+        $users = $this->usersModel->getUsers($email);
         if (!empty($users)) {
-            $deleteUsers = $this->usersModel->deleteUsers($id);
+            $deleteUsers = $this->usersModel->deleteUsers($email);
             $output = [
                 'status' => 200,
                 'message' => 'Berhasil menghapus data',

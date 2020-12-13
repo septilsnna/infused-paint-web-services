@@ -8,13 +8,18 @@ class ImageResultsModel extends Model
 {
     protected $table = 'image_results';
 
-    public function getImageResults($id = null)
+    public function getImageResults($user_email = null)
     {
-        if ($id == null) {
+        if ($user_email == null) {
             return $this->findAll();
         } else {
-            return $this->getWhere(['photo_id' => $id])->getRowArray();
+            return $this->where(['user_email' => $user_email])->findAll();
         }
+    }
+    
+    public function getImageResult($photo_id)
+    {
+        return $this->getWhere(['photo_id' => $photo_id])->getRowArray();
     }
 
     public function insertImageResults($data)

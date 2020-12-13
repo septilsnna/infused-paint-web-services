@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\ImageResultsModel;
 use CodeIgniter\RESTful\ResourceController;
 
-class ImageResults extends ResourceController
+class Imageresults extends ResourceController
 {
     protected $format = 'json';
     protected $modelName = 'App\Models\ImageResultsModel';
@@ -24,7 +24,7 @@ class ImageResults extends ResourceController
     public function create()                // POST
     {
         $imageresults = [
-            'user_id' => $this->request->getPost('user_id'),
+            'user_email' => $this->request->getPost('user_email'),
             'style_id' => (int)$this->request->getPost('style_id'),
             'content_image' => $this->request->getPost('content_image'),
             'file_result' => $this->request->getPost('file_result'),
@@ -49,29 +49,54 @@ class ImageResults extends ResourceController
         }
     }
 
-    public function show($id = null)        // Users/show method POST
+    public function show($user_email = null, $photo_id = null)        // Users/show method POST
     {
-        $imageresults = $this->imageresultsModel->getImageResults($id);
-        if (!empty($imageresults)) {
-            $output = [
-                'photo_id' => (int)$imageresults['photo_id'],
-                'user_id' => $imageresults['user_id'],
-                'style_id' => (int)$imageresults['style_id'],
-                'content_image' => $imageresults['content_image'],
-                'file_result' => $imageresults['file_result'],
-                'share_id' => $imageresults['share_id'],
-                'share_twitter' => $imageresults['share_twitter'],
-                'share_fb' => $imageresults['share_fb'],
-                'created_at' => $imageresults['created_at'],
-            ];
-            return $this->respond($output, 200);
+        if($photo_id == null) {
+            $imageresults = $this->imageresultsModel->getImageResults($user_email);
+            if (!empty($imageresults)) {
+                // $output = [
+                //     'photo_id' => (int)$imageresults['photo_id'],
+                //     'user_email' => $imageresults['user_email'],
+                //     'style_id' => (int)$imageresults['style_id'],
+                //     'content_image' => $imageresults['content_image'],
+                //     'file_result' => $imageresults['file_result'],
+                //     'share_ig' => $imageresults['share_ig'],
+                //     'share_twitter' => $imageresults['share_twitter'],
+                //     'share_fb' => $imageresults['share_fb'],
+                //     'created_at' => $imageresults['created_at'],
+                // ];
+                return $this->respond($imageresults, 200);
+            } else {
+                $output = [
+                    'status' => 400,
+                    'message' => 'Gagal menemukan data',
+                    'data' => ''
+                ];
+                return $this->respond($output, 400);
+            }
         } else {
-            $output = [
-                'status' => 400,
-                'message' => 'Gagal menemukan data',
-                'data' => ''
-            ];
-            return $this->respond($output, 400);
+            $imageresults = $this->imageresultsModel->getImageResult($photo_id);
+            if (!empty($imageresults)) {
+                $output = [
+                    'photo_id' => (int)$imageresults['photo_id'],
+                    'user_email' => $imageresults['user_email'],
+                    'style_id' => (int)$imageresults['style_id'],
+                    'content_image' => $imageresults['content_image'],
+                    'file_result' => $imageresults['file_result'],
+                    'share_ig' => $imageresults['share_ig'],
+                    'share_twitter' => $imageresults['share_twitter'],
+                    'share_fb' => $imageresults['share_fb'],
+                    'created_at' => $imageresults['created_at'],
+                ];
+                return $this->respond($output, 200);
+            } else {
+                $output = [
+                    'status' => 400,
+                    'message' => 'Gagal menemukan data',
+                    'data' => ''
+                ];
+                return $this->respond($output, 400);
+            }
         }
     }
 
@@ -81,7 +106,7 @@ class ImageResults extends ResourceController
         if (!empty($imageresults)) {
             $output = [
                 'photo_id' => (int)$imageresults['photo_id'],
-                'user_id' => $imageresults['user_id'],
+                'user_email' => $imageresults['user_email'],
                 'style_id' => (int)$imageresults['style_id'],
                 'content_image' => $imageresults['content_image'],
                 'file_result' => $imageresults['file_result'],

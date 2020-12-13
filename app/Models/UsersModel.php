@@ -8,12 +8,12 @@ class UsersModel extends Model
 {
     protected $table = 'users';
 
-    public function getUsers($id = null)
+    public function getUsers($email = null)
     {
-        if ($id == null) {
+        if ($email == null) {
             return $this->findAll();
         } else {
-            return $this->getWhere(['username' => $id])->getRowArray();
+            return $this->getWhere(['email' => $email])->getRowArray();
         }
     }
 
@@ -27,13 +27,18 @@ class UsersModel extends Model
         }
     }
 
-    public function updateUsers($data, $id)
+    public function updateUsers($data, $email)
     {
-        $query = $this->db->table($this->table)->update($data, ['username' => $id]);
+        $query = $this->db->table($this->table)->update($data, ['email' => $email]);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public function deleteUsers($id)
+    public function deleteUsers($email)
     {
-        $query = $this->db->table($this->table)->delete(['username' => $id]);
+        $query = $this->db->table($this->table)->delete(['email' => $email]);
     }
 }
