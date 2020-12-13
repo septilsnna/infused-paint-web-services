@@ -1,7 +1,7 @@
 # Infused Paint Web Services
 Mobile Computing Project - 113
 
-### Overview:
+### Overview
 Aplikasi Infused Paint merupakan sebuah aplikasi yang didalamnya terdapat fitur pengubahan gambar ataupun foto menjadi sebuah lukisan dengan menggunakan metode Neural Style Transfer. Neural Style Transfer adalah teknik pengoptimalan yang digunakan untuk mengambil dua gambar yaitu gambar konten dan gambar referensi gaya (seperti karya seni oleh pelukis terkenal) kemudian memadukan keduanya sehingga gambar keluaran terlihat seperti gambar konten, tetapi "dilukis" dalam gaya gambar referensi gaya.
 
 ![Fitur](https://github.com/septilsnna/infused-paint/blob/sprint-12/MockUp/fitur1024.jpg)
